@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">deviceLogcat</string>
+    <string name="all_log">抓取全部日志</string>
+    <string name="myButton1">确定</string>
+    <string name="myButton2">开启日志</string>
+    <string name="myTextView">已输入的关键字</string>
+    <string name="myEditText">请输入关键字</string>
+
+
+</resources>
