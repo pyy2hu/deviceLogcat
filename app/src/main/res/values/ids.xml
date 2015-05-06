@@ -4,4 +4,7 @@
     <item name="myTextView" type="id" />
     <item name="myButton1" type="id" />
     <item name="myButton2" type="id" />
+    <item name="logText" type="id" />
+    <item name="clearButton" type="id" />
+    <item name="saveButton" type="id" />
 </resources>

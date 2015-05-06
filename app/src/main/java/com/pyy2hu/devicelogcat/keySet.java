@@ -1,6 +1,7 @@
 package com.pyy2hu.devicelogcat;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -24,6 +25,7 @@ public class keySet extends Activity {
     private Button mButton2;
     String textViewStr = new String("");
     static boolean reGetKeyWord = false;
+    static boolean setGrepWord = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +49,7 @@ public class keySet extends Activity {
                 keyWord tempWord = new keyWord();
                 tempWord.keywords = mEditText.getText().toString();
                 mKwords.add(tempWord);
-                tempWord.print();
+                //tempWord.print();
                 mEditText.setText("");
             }
         });
@@ -56,29 +58,43 @@ public class keySet extends Activity {
             @Override
             public void onClick(View v) {
                 textViewStr = "关键字有: \n";
+                devLogInfo devInfo = new devLogInfo();
                 Iterator it = mKwords.iterator();
                 while(it.hasNext()) {
                     keyWord temp = (keyWord)it.next();
+                    devInfo.grepStr = devInfo.grepStr.concat(temp.keywords);
+                    setGrepWord = true;
+                    if (it.hasNext())
+                        devInfo.grepStr = devInfo.grepStr.concat("\\|");
                     textViewStr = textViewStr.concat(temp.keywords);
                     textViewStr = textViewStr.concat("\n");
                 }
-                //Log.i(Tag, "textViewStr " + textViewStr);
+                //Log.i(Tag, "grepStr " + devInfo.grepStr);
                 mTextView.setText(textViewStr);
 
                 textViewStr = "";
                 mKwords.clear();
                 reGetKeyWord = true;
                 mButton2.setEnabled(false);
+                //new一个Bundle对象，并将要传递的参数传入
+                Bundle bundle = new Bundle();
+                bundle.putString("grep", devInfo.grepStr);
+
+                //new一个Intent对象，并指定要启动的class
+                Intent intent = new Intent();
+                intent.setClass(keySet.this, logcatShow.class);
+                //将Bundle对象assign给Intent
+                intent.putExtras(bundle);
+                //调用一个新的Activity
+                startActivity(intent);
+                //关闭这个Activity
+                keySet.this.finish();
             }
         });
 
         mEditText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                //if (reGetKeyWord) {
-                //    mTextView.setText("已输入的关键字");
-                //    reGetKeyWord = false;
-               //}
                 return false;
             }
         });

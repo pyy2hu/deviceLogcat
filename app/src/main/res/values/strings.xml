@@ -7,6 +7,9 @@
     <string name="myButton2">开启日志</string>
     <string name="myTextView">已输入的关键字</string>
     <string name="myEditText">请输入关键字</string>
+    <string name="logText">显示日志</string>
+    <string name="clearButton">重新抓取</string>
+    <string name="saveButton">保存日志</string>
 
 
 </resources>

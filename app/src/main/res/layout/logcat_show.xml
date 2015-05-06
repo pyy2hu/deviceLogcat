@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:rowCount="2"
+    android:columnCount="25">
+
+
+    <TextView
+        android:layout_width="380dp"
+        android:layout_height="453dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/logText"
+        android:id="@+id/logText"
+        android:layout_columnSpan="25"
+        android:layout_row="0"
+        android:textColor="#ffb769ff"
+        android:textSize="8dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/clearButton"
+        android:id="@+id/clearButton"
+        android:layout_column="0"
+        android:layout_row="1"
+        android:layout_gravity="bottom|left"
+        android:layout_marginLeft="@dimen/space_margin" />
+
+    <Button
+        android:layout_width="@dimen/button_w_margin"
+        android:layout_height="@dimen/button_h_margin"
+        android:text="@string/saveButton"
+        android:id="@+id/saveButton"
+        android:layout_column="24"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="@dimen/space_margin" />
+
+</GridLayout>

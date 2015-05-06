@@ -6,4 +6,7 @@
     <dimen name="myEditText_vertical_margin">50dp</dimen>
     <dimen name="myTextView_horizontal_margin">400dp</dimen>
     <dimen name="myTextView_vertical_margin">350dp</dimen>
+    <dimen name="space_margin">50dp</dimen>
+    <dimen name="button_h_margin">50dp</dimen>
+    <dimen name="button_w_margin">100dp</dimen>
 </resources>
