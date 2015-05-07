@@ -9,6 +9,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -18,10 +22,12 @@ import java.util.ArrayList;
  */
 public class logcatShow extends Activity {
     static final String Tag = "[deviceLogcat]";
+    static boolean isGrep = false;
     //public ArrayList<devLogInfo> mKwords = new ArrayList<devLogInfo>() ;
     private TextView mTextView;
     private Button mButton1;
     private Button mButton2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,16 +38,22 @@ public class logcatShow extends Activity {
         mButton2 = (Button)findViewById(R.id.saveButton);
         Bundle bundle = this.getIntent().getExtras();
         String grepStr = bundle.getString("grep");
-        //Log.i(Tag, "grepStr " + grepStr);
-
+        if (!grepStr.isEmpty() && grepStr.compareTo(" ") != 0) {
+            isGrep = true;
+        }
         try {
-            Process process = Runtime.getRuntime().exec("logcat -d -v threadtime");
+            Process process = Runtime.getRuntime().exec("logcat -dv threadtime");
             BufferedReader bufferedReader = new BufferedReader(
                     new InputStreamReader(process.getInputStream()));
             StringBuilder log=new StringBuilder();
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                if (line.indexOf(grepStr) != -1) {
+                if (isGrep) {
+                    if (line.indexOf(grepStr) != -1) {
+                        log.append(line);
+                        log.append("\n");
+                    }
+                } else {
                     log.append(line);
                     log.append("\n");
                 }
@@ -51,14 +63,13 @@ public class logcatShow extends Activity {
             Log.e(Tag, "IO Exception");
         }
 
-
         mButton1.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
                     Runtime.getRuntime().exec("logcat -c");
                 } catch(Exception e) {
-
+                    Log.e(Tag, "Find Exception");
                 }
                 Intent intent = new Intent();
                 intent.setClass(logcatShow.this, keySet.class);
